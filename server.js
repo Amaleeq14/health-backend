@@ -6,10 +6,28 @@ const reportsRoutes = require('./routes/reports');
 const chatRoutes = require('./routes/chat');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
 
 app.use(cors());
 app.use(express.json());
+
+app.post("/api/blood-donors", (req, res) => {
+  const donorData = req.body;
+  console.log("Received blood donor:", donorData);
+    // Here you could add logic to store in DB
+  return res.status(201).json({ message: "Donor registered successfully" });
+});
+
+// Test route
+app.get("/", (req, res) => {
+  res.send("HealthTech Backend is running.");
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});
 
 app.use('/api/bookings', bookingsRoutes);
 app.use('/api/reports', reportsRoutes);
